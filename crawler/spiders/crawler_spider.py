@@ -116,7 +116,8 @@ class CrawlerSpider(Spider):
         item = CrawlerItem()
         item['QuestionAnswer'] = Selector(response).xpath(
             '//div[@class="collapseomatic_content "]/text()|//div[@class="entry-content"]/p/text()').extract()
-
+        item['ChapterName'] = ''.join(Selector(response).xpath('//h1[@class="entry-title"]/text()').extract()[0].split('\u2013')[1:]).strip()
+        item['NameId'] = '-'.join(item['ChapterName'].lower().split(' '))
         # for question in questions:
         #     item = CrawlerItem()
 
